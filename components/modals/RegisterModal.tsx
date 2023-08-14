@@ -1,6 +1,8 @@
+import { useCallback, useState } from "react";
+
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
-import { useCallback, useState } from "react";
+
 import Input from "../Input";
 import Modal from "../Modal";
 
@@ -13,6 +15,15 @@ const RegisterModal = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const onToggle = useCallback(() => {
+    if (isLoading) {
+      return;
+    }
+
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal, isLoading]);
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -63,7 +74,10 @@ const RegisterModal = () => {
     <div className="text-neutral-400 text-center mt-4">
       <p>
         Already have an account?
-        <span className="text-white cursor-pointer hover:underline">
+        <span
+          onClick={onToggle}
+          className="text-white cursor-pointer hover:underline"
+        >
           {" "}
           Sign In
         </span>

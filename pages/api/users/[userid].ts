@@ -13,10 +13,10 @@ export default async function handler(
   try {
     //user id validity
     const userId =
-      req.query?.userId &&
-      typeof req.query.userId === "string" &&
-      req.query.userId.trim().length > 0
-        ? req.query.userId
+      req.query?.userid &&
+      typeof req.query.userid === "string" &&
+      req.query.userid.trim().length > 0
+        ? req.query.userid
         : false;
 
     if (!userId) {

@@ -30,7 +30,7 @@ const LoginModal = () => {
         email,
         password,
       });
-      
+
       loginModal.onClose();
     } catch (error) {
       console.log(error);
@@ -71,6 +71,7 @@ const LoginModal = () => {
       </p>
     </div>
   );
+  
   return (
     <Modal
       disabled={isLoading}

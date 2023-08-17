@@ -34,7 +34,7 @@ export default async function handler(
     });
 
     // return response
-    return res.status(200).json("Updated Successfully!");
+    return res.status(200).json(updatedUser);
   } catch (error) {
     console.log(error);
     return res.status(500).json("There is a server side error!");

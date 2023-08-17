@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { BiCalendar } from "react-icons/bi";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
+import useEditModal from "@/hooks/useEditModal";
 import useUser from "@/hooks/useUser";
 
 import Button from "../Button";
@@ -13,12 +14,15 @@ interface UserBioProps {
 }
 
 const UserBio: React.FC<UserBioProps> = ({ userId }) => {
+  //hooks
+  const editModal = useEditModal();
+
   // fetching current user information
   const { data: currentUser } = useCurrentUser();
 
   // fetching user information passed through query
   const { data: user } = useUser(userId);
-  console.log(user);
+
   // date formatting
   const createdAt = useMemo(() => {
     if (!user?.createdAt) {
@@ -31,11 +35,12 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
     <div className="border-b-[1px] border-neutral-800 pb-4">
       <div className="flex justify-end p2 mt-2">
         {currentUser?.id === userId ? (
-          <Button secondary label="Edit" onClick={() => {}} />
+          <Button secondary label="Edit" onClick={editModal.onOpen} />
         ) : (
           <Button secondary label="Follow" onClick={() => {}} />
         )}
       </div>
+
       <div className="mt-8 px-4">
         <div className="flex flex-col">
           <p className="text-white text-2xl font-semibold">{user?.name}</p>
@@ -48,14 +53,15 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
             <p className="">Joined {createdAt}</p>
           </div>
         </div>
-        <div className="flex items-center mt-4 gap-4">
-          // following
-          <div className="flex items-center gap-1">
+
+        <div className="flex flex-row items-center mt-4 gap-6">
+          {/*  following */}
+          <div className="flex flex-row justify-start items-center gap-1">
             <p className="text-white">{user?.followingIds?.length}</p>
             <p className="text-neutral-500">following</p>
           </div>
-          // followers
-          <div className="flex items-center gap-1">
+          {/*  followers */}
+          <div className="flex flex-row items-center gap-1">
             <p className="text-white">{user?.followers}</p>
             <p className="text-neutral-500">followers</p>
           </div>

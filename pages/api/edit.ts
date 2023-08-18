@@ -1,21 +1,24 @@
 // dependencies
 import { NextApiRequest, NextApiResponse } from "next";
 
+import prisma from "@/libs/prismadb";
 import serverAuth from "@/libs/serverAuth";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // @TODO:---------GETTING SERVER AUTH ERROR-----------!!
   if (req.method !== "PATCH") {
     return res.status(405).end();
   }
 
   try {
     // get current user
-    const { currentUser } = await serverAuth(req);
+    const { currentUser } = await serverAuth(req, res);
+
     //destructure
-    const { id, name, username, bio, coverImage, profileImage } = currentUser;
+    const { name, username, bio, coverImage, profileImage } = req.body;
 
     if (!name || !username) {
       throw new Error("Missing fields!");
@@ -23,7 +26,7 @@ export default async function handler(
 
     // update the user information
     const updatedUser = await prisma?.user.update({
-      where: { id: id },
+      where: { id: currentUser?.id },
       data: {
         username,
         name,
@@ -37,6 +40,6 @@ export default async function handler(
     return res.status(200).json(updatedUser);
   } catch (error) {
     console.log(error);
-    return res.status(500).json("There is a server side error!");
+    return res.status(500).json("There is a server side error");
   }
 }

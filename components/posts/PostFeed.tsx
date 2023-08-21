@@ -6,7 +6,7 @@ interface PostFeedProps {
 }
 
 const PostFeed: React.FC<PostFeedProps> = ({ userid }) => {
-  const { data: posts = [] } = usePosts();
+  const { data: posts = [] } = usePosts(userid);
   return (
     <>
       {posts.map((post: Record<string, any>) => (

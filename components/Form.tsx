@@ -30,8 +30,11 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
     try {
       setIsLoading(true);
 
+      // if tweet is for comment then it will hit "POST" method to different route
+      const url = isComment ? `/api/comments?postId=${postId}` : "/api/posts";
+
       // posting the body to the api
-      await axios.post("/api/posts", { body });
+      await axios.post(url, { body });
 
       // show success message to the user
       toast.success("Tweet created!");
@@ -44,7 +47,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [body, mutatePosts]);
+  }, [body, mutatePosts, isComment, postId]);
 
   // content
   const guestContent = (

@@ -40,7 +40,7 @@ export default async function handler(
         // also user details and comments
         // on desc order(new first)
         posts = await prisma.post.findMany({
-          where: { id: userid },
+          where: { userId: userid },
           include: { user: true, comments: true },
           orderBy: { createdAt: "desc" },
         });
@@ -50,6 +50,7 @@ export default async function handler(
           orderBy: { createdAt: "desc" },
         });
       }
+      console.log(posts);
 
       return res.status(200).json(posts);
     }

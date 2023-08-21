@@ -56,7 +56,6 @@ const EditModal = () => {
       //close the modal
       editModal.onClose();
     } catch (error: any) {
-      console.log("editmodal-> line 58", error);
       toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);

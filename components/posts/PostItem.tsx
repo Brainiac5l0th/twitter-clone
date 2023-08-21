@@ -23,13 +23,13 @@ const PostItem: React.FC<PostItemProps> = ({ data, userid }) => {
     (event: any) => {
       event.stopPropagation();
 
-      router.push(`/user/${data.user.id}`);
+      router.push(`/user/${data.user?.id}`);
     },
-    [router, data.user.id]
+    [router, data.user?.id]
   );
 
   const goToPost = useCallback(() => {
-    router.push(`${data.id}`);
+    router.push(`/posts/${data.id}`);
   }, [router, data.id]);
 
   // like handler
@@ -50,17 +50,18 @@ const PostItem: React.FC<PostItemProps> = ({ data, userid }) => {
 
     return formatDistanceToNowStrict(new Date(data.createdAt));
   }, [data.createdAt]);
+
   return (
     <div
       onClick={goToPost}
       className="border-b-[1px] border-neutral-800 rounded-md cursor-pointer p-5 hover:bg-neutral-900 transition"
     >
       <div className="flex items-start gap-3">
-        <Avatar userId={data?.user.id} />
+        <Avatar userId={data?.user?.id} />
         <div className="">
           <div className="flex items-center gap-2">
             <p className="text-white font-semibold cursor-pointer hover:underline">
-              {data?.user.name}
+              {data?.user?.name}
             </p>
             <span
               onClick={goToUser}

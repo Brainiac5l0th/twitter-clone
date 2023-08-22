@@ -3,8 +3,11 @@ import { BsTwitter } from "react-icons/bs";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useNotifications from "@/hooks/useNotifications";
+import { useRouter } from "next/router";
 
 const NotificationsFeed = () => {
+  const router = useRouter();
+
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const { data: fetchedNotifications = [] } = useNotifications(currentUser?.id);
 
@@ -19,12 +22,18 @@ const NotificationsFeed = () => {
       </div>
     );
   }
+
   return (
     <div className="flex flex-col ">
       {fetchedNotifications?.map((notification: Record<string, any>) => (
-        <div className="flex items-center gap-4 p-6 border-b-[1px] border-neutral-800 hover:bg-neutral-500">
+        <div className="flex items-center gap-4 p-6 border-b-[1px] border-neutral-800 hover:bg-neutral-900 cursor-pointer">
           <BsTwitter size={32} color={"white"} />
-          <p className="text-white">{notification.body}</p>
+          <p
+            className="text-white"
+            onClick={() => router.push(notification?.link)}
+          >
+            {notification.body}
+          </p>
         </div>
       ))}
     </div>

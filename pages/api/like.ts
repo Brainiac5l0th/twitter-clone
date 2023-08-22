@@ -34,6 +34,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
       // if the method is post, that means user liking the post, thus we will add the current user's id to the liked ids
       updatedLikedIds.push(currentUser?.id);
+
+      // send notification to the user author
+      try {
+        // fetch current post
+        const post = await prisma.post.findUnique({ where: { id: postId } });
+
+        if (post?.userId) {
+          // set the notification
+          await prisma.notification.create({
+            data: {
+              body: `@${currentUser?.username} liked your post.`,
+              link: `/posts/${post?.id}`,
+              userId: post?.userId,
+            },
+          });
+
+          // set notification to true for the author
+          await prisma.user.update({
+            where: { id: post?.userId },
+            data: { hasNotification: true },
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
     if (req.method === "DELETE") {
       // delete method means that user is removing like

@@ -32,6 +32,21 @@ export default async function handler(
     // push current user's id to the user's id that want to follow
     if (req.method === "POST") {
       updatedFollowingIds.push(userId);
+
+      // send notification to the user
+
+      await prisma.notification.create({
+        data: {
+          link: `/user/${currentUser?.id}`,
+          body: `@${currentUser?.username} started following you! `,
+          userId: user?.id,
+        },
+      });
+
+      await prisma.user.update({
+        where: { id: user?.id },
+        data: { hasNotification: true },
+      });
     }
 
     // check method is "DELETE" or not. Then remover current user id from users following id

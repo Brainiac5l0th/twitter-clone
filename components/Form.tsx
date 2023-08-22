@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
+import usePost from "@/hooks/usePost";
 import usePosts from "@/hooks/usePosts";
 import useRegisterModal from "@/hooks/useRegisterModal";
 
@@ -22,6 +23,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
   const loginModal = useLoginModal();
   const { data: currentUser } = useCurrentUser();
   const { mutate: mutatePosts } = usePosts();
+  const { mutate: mutatePost } = usePost(postId as string);
 
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +44,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 
       //mutate states
       mutatePosts();
+      mutatePost();
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {

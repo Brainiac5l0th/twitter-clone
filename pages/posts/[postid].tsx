@@ -6,6 +6,7 @@ import usePost from "@/hooks/usePost";
 import Form from "@/components/Form";
 import Header from "@/components/Header";
 import PostItem from "@/components/posts/PostItem";
+import CommentFeed from "@/components/posts/CommentFeed";
 
 const PostView = () => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const PostView = () => {
       <Header label={"Tweet"} showBackArrow />
       {fetchedPost && <PostItem data={fetchedPost} />}
       <Form postId={postid} isComment placeholder="Tweet your reply" />
+      <CommentFeed comments={fetchedPost?.comments} />
     </>
   );
 };

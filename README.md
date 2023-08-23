@@ -1,5 +1,5 @@
 ## Scout 
 ```
-https://twitter-clone.vercel.app/
+https://twitter-clone-brainiac5l0th.vercel.app/
 ```
-> Lazy To copy? [ click me ](https://meal-recipe-search-app.netlify.app/)
+> Lazy To copy? [ click me ](https://twitter-clone-brainiac5l0th.vercel.app/)

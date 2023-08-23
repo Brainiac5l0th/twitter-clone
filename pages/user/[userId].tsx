@@ -8,7 +8,7 @@ import PostFeed from "@/components/posts/PostFeed";
 import UserBio from "@/components/users/UserBio";
 import UserHero from "@/components/users/UserHero";
 
-const userView = () => {
+const UserView = () => {
   const router = useRouter();
 
   // get user id from query
@@ -44,4 +44,4 @@ const userView = () => {
   return content;
 };
 
-export default userView;
+export default UserView;

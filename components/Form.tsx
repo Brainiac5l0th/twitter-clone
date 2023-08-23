@@ -50,7 +50,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [body, mutatePosts, isComment, postId]);
+  }, [body, mutatePosts, isComment, postId, mutatePost]);
 
   // content
   const guestContent = (

@@ -17,7 +17,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ data }) => {
 
       router.push(`/user/${data.user?.id}`);
     },
-    [data.user?.id]
+    [data.user?.id, router]
   );
 
   // formatting the date

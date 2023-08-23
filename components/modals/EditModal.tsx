@@ -60,7 +60,15 @@ const EditModal = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [bio, name, username, profileImage, coverImage]);
+  }, [
+    bio,
+    name,
+    username,
+    profileImage,
+    coverImage,
+    editModal,
+    mutateFetchedUser,
+  ]);
 
   // body content
   const bodyContent = (

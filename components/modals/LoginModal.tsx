@@ -19,7 +19,7 @@ const LoginModal = () => {
   const onToggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
-  }, [isLoading, registerModal, loginModal]);
+  }, [registerModal, loginModal]);
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -71,7 +71,7 @@ const LoginModal = () => {
       </p>
     </div>
   );
-  
+
   return (
     <Modal
       disabled={isLoading}
